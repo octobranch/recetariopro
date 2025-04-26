@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Recetario Pro</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Recetario Profesional</h1>
+      <button id="openModalBtn">+ Nueva Receta</button>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab active" data-category="Entradas">Entradas</button>
+      <button class="tab" data-category="Platos Fuertes">Platos Fuertes</button>
+      <button class="tab" data-category="Postres">Postres</button>
+      <button class="tab" data-category="Bebidas">Bebidas</button>
+    </nav>
+
+    <section id="recipeContainer" class="recipe-container"></section>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <h2 id="modalTitle">Agregar Receta</h2>
+      <input id="recipeTitle" placeholder="Nombre de la receta" />
+      <select id="recipeCategory">
+        <option>Entradas</option>
+        <option>Platos Fuertes</option>
+        <option>Postres</option>
+        <option>Bebidas</option>
+      </select>
+      <textarea id="recipeIngredients" placeholder="Ingredientes"></textarea>
+      <textarea id="recipeSteps" placeholder="Instrucciones"></textarea>
+      <div class="modal-buttons">
+        <button id="saveRecipeBtn">Guardar</button>
+        <button id="cancelBtn">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
