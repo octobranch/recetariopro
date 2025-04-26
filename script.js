@@ -4,6 +4,8 @@ const categoryTabs = document.querySelectorAll(".tab");
 const recipeContainer = document.getElementById("recipeContainer");
 const modal = document.getElementById("modal");
 const modalTitle = document.getElementById("modalTitle");
+const menuToggle = document.getElementById("menuToggle");
+const tabsMenu = document.getElementById("tabsMenu");
 
 const openModalBtn = document.getElementById("openModalBtn");
 const saveRecipeBtn = document.getElementById("saveRecipeBtn");
@@ -23,22 +25,28 @@ categoryTabs.forEach(tab => {
     tab.classList.add("active");
     currentCategory = tab.dataset.category;
     renderRecipes();
+    if (tabsMenu.classList.contains("show")) {
+      tabsMenu.classList.remove("show"); // Cierra menú después de seleccionar
+    }
   });
 });
 
-// Mostrar modal
+// Abrir menú hamburguesa
+menuToggle.addEventListener("click", () => {
+  tabsMenu.classList.toggle("show");
+});
+
+// Modal
 openModalBtn.onclick = () => {
   resetForm();
   modal.classList.remove("hidden");
 };
 
-// Cancelar
 cancelBtn.onclick = () => {
   modal.classList.add("hidden");
   resetForm();
 };
 
-// Guardar receta
 saveRecipeBtn.onclick = () => {
   const title = titleInput.value.trim();
   const category = categoryInput.value;
@@ -62,7 +70,6 @@ saveRecipeBtn.onclick = () => {
   renderRecipes();
 };
 
-// Renderizar recetas por categoría
 function renderRecipes() {
   recipeContainer.innerHTML = "";
   const filtered = recipes.filter(r => r.category === currentCategory);
