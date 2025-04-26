@@ -15,10 +15,13 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 h1 {
   color: #e0218a;
+  font-size: 1.8rem;
 }
 
 button {
@@ -36,10 +39,18 @@ button:hover {
   background-color: #c91877;
 }
 
+.menu-toggle {
+  font-size: 28px;
+  display: none;
+  cursor: pointer;
+  color: #e0218a;
+}
+
 .tabs {
   display: flex;
   gap: 10px;
   margin: 20px 0;
+  flex-wrap: wrap;
 }
 
 .tab {
@@ -68,16 +79,10 @@ button:hover {
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-  position: relative;
 }
 
 .recipe-card h3 {
   color: #e0218a;
-  margin: 0 0 10px;
-}
-
-.recipe-card p {
-  font-size: 0.9rem;
 }
 
 .card-buttons {
@@ -92,6 +97,7 @@ button:hover {
   font-size: 0.8rem;
 }
 
+/* Modal */
 .modal {
   position: fixed;
   top: 0;
@@ -102,6 +108,7 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 99;
 }
 
 .modal-content {
@@ -125,8 +132,40 @@ textarea, input, select {
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 6px;
+  resize: vertical;
 }
 
 .hidden {
   display: none;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .tabs {
+    display: none;
+    flex-direction: column;
+    background-color: #fff0f5;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .tabs.show {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  header {
+    justify-content: space-between;
+  }
+
+  .recipe-card {
+    font-size: 0.9rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
 }
