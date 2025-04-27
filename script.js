@@ -15,6 +15,7 @@ const titleInput = document.getElementById("recipeTitle");
 const categoryInput = document.getElementById("recipeCategory");
 const ingredientsInput = document.getElementById("recipeIngredients");
 const stepsInput = document.getElementById("recipeSteps");
+const imageInput = document.getElementById("recipeImage");
 
 let currentCategory = "Entradas";
 
@@ -52,10 +53,25 @@ saveRecipeBtn.onclick = () => {
   const category = categoryInput.value;
   const ingredients = ingredientsInput.value.trim();
   const steps = stepsInput.value.trim();
+  const imageFile = imageInput.files[0];
 
   if (!title || !ingredients || !steps) return alert("Completa todos los campos.");
 
-  const newRecipe = { title, category, ingredients, steps };
+  if (imageFile) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const imageBase64 = e.target.result;
+      saveRecipe(title, category, ingredients, steps, imageBase64);
+    };
+    reader.readAsDataURL(imageFile);
+  } else {
+    const currentImage = editIndex !== null ? recipes[editIndex].image : null;
+    saveRecipe(title, category, ingredients, steps, currentImage);
+  }
+};
+
+function saveRecipe(title, category, ingredients, steps, image) {
+  const newRecipe = { title, category, ingredients, steps, image };
 
   if (editIndex !== null) {
     recipes[editIndex] = newRecipe;
@@ -68,7 +84,7 @@ saveRecipeBtn.onclick = () => {
   modal.classList.add("hidden");
   resetForm();
   renderRecipes();
-};
+}
 
 function renderRecipes() {
   recipeContainer.innerHTML = "";
@@ -77,6 +93,7 @@ function renderRecipes() {
     const card = document.createElement("div");
     card.className = "recipe-card";
     card.innerHTML = `
+      ${r.image ? `<img src="${r.image}" alt="${r.title}" class="recipe-image"/>` : ""}
       <h3>${r.title}</h3>
       <p><strong>Ingredientes:</strong><br>${r.ingredients.replace(/\n/g, "<br>")}</p>
       <p><strong>Instrucciones:</strong><br>${r.steps.replace(/\n/g, "<br>")}</p>
@@ -113,6 +130,7 @@ function resetForm() {
   ingredientsInput.value = "";
   stepsInput.value = "";
   categoryInput.value = "Entradas";
+  imageInput.value = "";
   modalTitle.textContent = "Agregar Receta";
   editIndex = null;
 }
